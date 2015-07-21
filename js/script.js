@@ -6,6 +6,7 @@ d3.csv("./data/polarity_final.csv", function(error, data){
     if (error) throw error;
     data.forEach(function(d){
         d.date = parseDate(d.date);
+        d.id = +d.id,
         d.rank = +d.rank;
         d.subjectivity = +d.subjectivity;
         d.polarity = +d.polarity;
@@ -15,11 +16,6 @@ d3.csv("./data/polarity_final.csv", function(error, data){
         height = 700,
         boxSize = 4,
         boxOffset = 1;
-
-    var j = -1,
-        jIndex = 0,
-        k = -1,
-        kIndex = 0;
 
     var lyricsChart = d3.select('#chart').append('svg')
         .attr('width', width)
@@ -35,22 +31,11 @@ d3.csv("./data/polarity_final.csv", function(error, data){
             .attr('width', boxSize)
             .attr('height', boxSize)
             .attr('x', function(d,i){
-                j++;
-                if (j > 99) {
-                    j = 0;
-                    jIndex++;
-                    return jIndex * boxSize;
-                } else{
-                    return jIndex * boxSize;
-                };
+                var xx = Math.floor(d.id / 100)* boxSize;
+                return xx;
             })
             .attr('y', function(d,i){
-                k++;
-                if (k > 99) {
-                    k = 0;
-                    return k * boxSize;
-                } else{
-                    return k * boxSize;
-                };
+                var yy = (d.id%100) * boxSize;
+                return yy;
             })
 })
