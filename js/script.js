@@ -1,6 +1,7 @@
 var parseDate = d3.time.format("%Y-%m-%d").parse,
     formatDate = d3.time.format("%b %d");
 
+//id,date,rank,title,artist,classification,subjectivity,polarity,neg,pos
 d3.csv("./data/polarity_final.csv", function(error, data){
     if (error) throw error;
     data.forEach(function(d){
